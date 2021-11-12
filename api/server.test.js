@@ -16,7 +16,6 @@ afterAll(async () => {
 });
 
 describe("[GET] /archetypes", () => {
-  
   test("responds with all the archetypes", async () => {
     const res = await request(server).get("/api/archetypes");
     expect(res.status).toBe(200);
@@ -39,4 +38,21 @@ describe("[GET] /archetypes/:id", () => {
       },
     ]);
   });
-})
+});
+
+describe("[POST] /archetypes", () => {
+  test("populates database with new values", async () => {
+    const res = await request(server).post("/api/archetypes").send({
+      archetype_name: "Queen",
+      archetype_description: "The Queen is accepting, nuturing, independent.",
+    });
+    expect(res.status).toBe(201);
+    expect(res.body).toMatchObject([
+      {
+        archetype_description: "The Queen is accepting, nuturing, independent.",
+        archetype_id: 5,
+        archetype_name: "Queen",
+      },
+    ]);
+  });
+});
