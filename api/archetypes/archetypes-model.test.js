@@ -19,18 +19,55 @@ afterAll(async () => {
 });
 
 describe("archetypes model", () => {
-  describe("get endpoint", () => {
+  describe("get function", () => {
     let data;
     beforeEach(async () => {
       data = await Archetypes.get();
     });
-    test('gets all archetypes from db', async () => {
-      const data = await Archetypes.get();
-      expect(data).toHaveLength(4)
-    })
-    test('get pulls the correct shape', () => {
-      expect(data).toMatchObject([{"archetype_description": "The King is centered, protective, provides order.", "archetype_id": 1, "archetype_name": "King"}, {"archetype_description": "The Warrior is aggressive, mindful, decisive.", "archetype_id": 2, "archetype_name": "Warrior"}, {"archetype_description": "The Magician is intellectual, curious, reflective.", "archetype_id": 3, "archetype_name": "Magician"}, {"archetype_description": "The Lover is emotional, sensual, spiritual.", "archetype_id": 4, "archetype_name": "Lover"}])
-    })
+    test("gets all archetypes from db", async () => {
+      expect(data).toHaveLength(4);
+    });
+    test("get pulls the correct shape", () => {
+      expect(data).toMatchObject([
+        {
+          archetype_description:
+            "The King is centered, protective, provides order.",
+          archetype_id: 1,
+          archetype_name: "King",
+        },
+        {
+          archetype_description:
+            "The Warrior is aggressive, mindful, decisive.",
+          archetype_id: 2,
+          archetype_name: "Warrior",
+        },
+        {
+          archetype_description:
+            "The Magician is intellectual, curious, reflective.",
+          archetype_id: 3,
+          archetype_name: "Magician",
+        },
+        {
+          archetype_description: "The Lover is emotional, sensual, spiritual.",
+          archetype_id: 4,
+          archetype_name: "Lover",
+        },
+      ]);
+    });
+  });
 
+  describe("getById function", () => {
+    let data;
+    beforeEach(async () => {
+      data = await Archetypes.getById(1);
+    });
+    test("getById returns data from correct id", () => {
+      expect(data).toMatchObject([{
+        archetype_description:
+          "The King is centered, protective, provides order.",
+        archetype_id: 1,
+        archetype_name: "King"
+      }]);
+    });
   });
 });
